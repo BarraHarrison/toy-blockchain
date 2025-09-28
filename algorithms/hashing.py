@@ -10,8 +10,9 @@ def hash_data(data: str, algo: str = "sha256") -> str:
     h.update(data.encode("utf-8"))
     return h.hexdigest()
 
-def hash_object():
-    pass
+def hash_object(obj, algo: str = "sha256") -> str:
+    serialized = json.dumps(obj, sort_keys=True)
+    return hash_data(serialized, algo)
 
 def double_sha256():
     pass

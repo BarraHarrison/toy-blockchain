@@ -68,5 +68,14 @@ if __name__ == "__main__":
     txs = ["Alice pays Bob 5 BTC", "Bob pays Charlie 2 BTC", "Charlie pays Dave 1 BTC"]
     tree = MerkleTree(txs, algo="blake2b")
     print("Merkle Root:", tree.root)
-    print("\n=== Full Tree ===")
     tree.print_tree()
+
+    target_tx = txs[1]
+    proof = tree.get_proof(target_tx)
+
+    print(f"\nProof for '{target_tx}':")
+    for sibling, direction in proof:
+        print(f"   {direction}: {sibling}")
+
+    is_valid = tree.verify_proof(target_tx, proof, tree.root)
+    proof(f"\nVerification result: {is_valid}")

@@ -26,6 +26,13 @@ class MerkleTree:
             self.levels.append(current_level)
 
         return current_level[0]
+    
+    def print_tree(self):
+        for depth, level in enumerate(self.levels):
+            print(f"Level {depth}: ")
+            for node in level:
+                print("  ", node)
+            print()
 
 if __name__ == "__main__":
     pass

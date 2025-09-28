@@ -13,7 +13,7 @@ class MerkleTree:
         if not transactions:
             return ""
         
-        current_level = [hash_data(transactions, self.algo) for tx in transactions]
+        current_level = [hash_data(tx, self.algo) for tx in transactions]
         self.levels.append(current_level)
 
         while len(current_level) > 1:

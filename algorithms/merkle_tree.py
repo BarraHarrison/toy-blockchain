@@ -35,4 +35,8 @@ class MerkleTree:
             print()
 
 if __name__ == "__main__":
-    pass
+    txs = ["Alice pays Bob 5 BTC", "Bob pays Charlie 2 BTC", "Charlie pays Dave 1 BTC"]
+    tree = MerkleTree(txs, algo="sha256")
+    print("Merkle Root:", tree.root)
+    print("\n=== Full Tree ===")
+    tree.print_tree()

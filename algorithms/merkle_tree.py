@@ -1,5 +1,5 @@
 from hashing import hash_data
-from typing import List
+from typing import List, Tuple
 
 
 class MerkleTree:
@@ -33,6 +33,12 @@ class MerkleTree:
             for node in level:
                 print("  ", node)
             print()
+
+    def get_proof():
+        pass
+
+    def verify_proof():
+        pass
 
 if __name__ == "__main__":
     txs = ["Alice pays Bob 5 BTC", "Bob pays Charlie 2 BTC", "Charlie pays Dave 1 BTC"]

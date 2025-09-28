@@ -34,25 +34,21 @@ class MerkleTree:
                 print("  ", node)
             print()
 
-    def get_proof(self, tx: str) -> List[Tuple[str, str]]:
-        tx_hash = hash_data(tx, self.algo)
+    def get_proof(self, transaction):
+        tx_hash = hash_data(transaction)
+        try:
+            idx = self.levels[0].index(tx_hash)
+        except ValueError:
+            raise ValueError(f"Transaction '{transaction}' not found in the Merkle Tree")
+
         proof = []
-
-        if tx_hash not in self.levels[0]:
-            raise ValueError("Transaction not found in tree")
-
-        index = self.levels[0].index(tx_hash)
-
         for level in self.levels[:-1]:
-            is_right_node = index % 2
-            sibling_index = index - 1 if is_right_node else index + 1
-
-            if sibling_index < len(level):
-                sibling = level[sibling_index]
-                direction = "left" if is_right_node else "right"
-                proof.append((sibling, direction))
-
-            index //= 2
+            sibling_idx = idx ^ 1
+            if sibling_idx < len(level):
+                direction = "left" if sibling_idx < idx else "right"
+                proof.append((level[sibling_idx], direction))
+            idx //= 2
+        return proof
 
     def verify_proof(self, tx: str, proof: List[Tuple[str, str]], root: str) -> bool:
         current_hash = hash_data(tx, self.algo)

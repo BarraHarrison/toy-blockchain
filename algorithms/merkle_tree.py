@@ -3,7 +3,7 @@ from typing import List
 
 
 class MerkleTree:
-    def __init__(self, transactions: List[str], algo: str = "sha256"):
+    def __init__(self, transactions: List[str], algo: str = "blake2b"):
         self.algo = algo
         self.transactions = transactions
         self.levels = []
@@ -36,7 +36,7 @@ class MerkleTree:
 
 if __name__ == "__main__":
     txs = ["Alice pays Bob 5 BTC", "Bob pays Charlie 2 BTC", "Charlie pays Dave 1 BTC"]
-    tree = MerkleTree(txs, algo="sha256")
+    tree = MerkleTree(txs, algo="blake2b")
     print("Merkle Root:", tree.root)
     print("\n=== Full Tree ===")
     tree.print_tree()

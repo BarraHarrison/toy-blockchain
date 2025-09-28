@@ -14,8 +14,10 @@ def hash_object(obj, algo: str = "sha256") -> str:
     serialized = json.dumps(obj, sort_keys=True)
     return hash_data(serialized, algo)
 
-def double_sha256():
-    pass
+def double_sha256(data: str) -> str:
+    return hashlib.sha256(
+        hashlib.sha256(data.encode("utf-8")).digest()
+    ).hexdigest()
 
 def benchmark():
     pass

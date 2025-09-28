@@ -54,8 +54,15 @@ class MerkleTree:
 
             index //= 2
 
-    def verify_proof():
-        pass
+    def verify_proof(self, tx: str, proof: List[Tuple[str, str]], root: str) -> bool:
+        current_hash = hash_data(tx, self.algo)
+        for sibling, direction in proof:
+            if direction == "left":
+                current_hash = hash_data(sibling + current_hash, self.algo)
+            else:
+                current_hash = hash_data(current_hash + sibling, self.algo)
+
+        return current_hash == root
 
 if __name__ == "__main__":
     txs = ["Alice pays Bob 5 BTC", "Bob pays Charlie 2 BTC", "Charlie pays Dave 1 BTC"]

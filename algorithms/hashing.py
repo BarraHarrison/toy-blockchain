@@ -37,7 +37,7 @@ if __name__ == "__main__":
     text = "Hashing on the Blockchain"
     print("SHA-256:", hash_data(text, "sha256"))
     print("SHA3-256:", hash_data(text, "sha3_256"))
-    print("Blake2b", hash_data(text, "Blake2b"))
+    print("Blake2b", hash_data(text, "blake2b"))
     print("Double SHA-256:", double_sha256(text))
 
     obj = {"sender": "Alan", "receiver": "Bill", "amount": 10}

@@ -2,11 +2,18 @@ import time
 from hashing import hash_data
 
 class Block:
-    def __init__(self):
-        pass
+    def __init__(self, index: int, data: str, prev_hash: str = "0"*64, difficulty: int = 3):
+        self.index = index
+        self.timestamp = time.time()
+        self.data = data
+        self.prev_hash = prev_hash
+        self.nonce = 0
+        self.difficulty = difficulty
+        self.hash = self.compute_hash()
 
     def compute_hash(self):
-        pass
+        block_string = f"{self.index}{self.timestamp}{self.data}{self.prev_hash}{self.nonce}"
+        return hash_data(block_string, algo="sha256")
 
     def mine(self):
         pass

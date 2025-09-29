@@ -18,12 +18,12 @@ class Block:
                 f"Data: {self.data}")
 
 
-class Blockchain():
+class Blockchain:
     def __init__(self):
-        pass
+        self.chain = [self.create_genesis_block()]
 
     def create_genesis_block(self):
-        pass
+        return Block("Genesis Block")
 
     def add_block(self, data):
         pass

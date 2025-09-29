@@ -43,7 +43,20 @@ class Blockchain:
             return True
 
     def __repr__(self):
-        pass
+        return "\n".join(str(block) for block in self.chain)
 
 if __name__ == "__main__":
-    pass
+    blockchain = Blockchain()
+    blockchain.add_block("Adam pays Bob 5 BTC")
+    blockchain.add_block("Bill pays Charles 2 BTC")
+    blockchain.add_block("Tom pays Mike 4 BTC")
+
+    print("=== Blockchain ===")
+    print(blockchain)
+
+    print("\nIs this blockchain valid?", blockchain.is_valid())
+
+    blockchain.chain[1].data = "Adam pays Bob 500 BTC"
+    print("\nAfter Tampering: ")
+    print(blockchain)
+    print("Is blockchain valid?", blockchain.is_valid())

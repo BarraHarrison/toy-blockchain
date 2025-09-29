@@ -16,10 +16,20 @@ class Block:
         return hash_data(block_string, algo="sha256")
 
     def mine(self):
-        pass
+        target_prefix = "0" * self.difficulty
+        self.nonce = 0
+        self.hash = self.compute_hash()
+        start = time.time()
+        while not self.hash.startswith(target_prefix):
+            self.nonce += 1
+            self.hash = self.compute_hash()
+        elapsed = time.time() - start
+        return elapsed
 
     def __repr__(self):
-        pass
+        return (f"Block#{self.index} Hash:{self.hash[:12]}... Prev:{self.prev_hash[:12]}..."
+                f"Nonce:{self.nonce} Data:{self.data!r}")
+
 
 class Blockchain:
     def __init__(self):

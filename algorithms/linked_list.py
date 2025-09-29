@@ -31,7 +31,16 @@ class Blockchain:
         self.chain.append(new_block)
 
     def is_valid(self):
-        pass
+        for i in range(1, len(self.chain)):
+            curr = self.chain[i]
+            prev = self.chain[i - 1]
+
+            if curr.hash != curr.compute_hash():
+                return False
+            
+            if curr.prev_hash != prev.hash:
+                return False
+            return True
 
     def __repr__(self):
         pass

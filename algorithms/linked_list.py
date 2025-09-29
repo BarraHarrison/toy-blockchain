@@ -26,7 +26,9 @@ class Blockchain:
         return Block("Genesis Block")
 
     def add_block(self, data):
-        pass
+        prev_hash = self.chain[-1].hash
+        new_block = Block(data, prev_hash)
+        self.chain.append(new_block)
 
     def is_valid(self):
         pass

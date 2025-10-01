@@ -32,17 +32,38 @@ class Block:
 
 
 class Blockchain:
-    def __init__(self):
-        pass
+    def __init__(self, difficulty: int = 3):
+        self.difficulty = difficulty
+        self.chain = [self.create_genesis_block()]
 
     def create_genesis_block(self):
-        pass
+        return Block(0, "Genesis Block", prev_hash="0"*64, difficulty=self.difficulty)
 
-    def add_block(self):
-        pass
+    def add_block(self, data: str, mine: bool = True):
+        prev_hash = self.chain[-1].hash
+        new_block = Block(len(self.chain), data, prev_hash=prev_hash, difficulty=self.difficulty)
+        if mine:
+            elapsed = new_block.mine()
+            print(f"Mined block {new_block.index} in {elapsed:.4f}s (nonce={new_block.nonce})")
+        self.chain.append(new_block)
 
-    def is_valid(self):
-        pass
+    def is_valid(self) -> bool:
+        for i in range(1, len(self.chain)):
+            current = self.chain[i]
+            previous = self.chain[i-1]
+            if current.hash != current.compute_hash():
+                print(f"Invalid: Block {i} hash mismatch")
+                return False
+            
+            if current.prev_hash != previous.hash:
+                print(f"Invalid: Block {i} previous hash mismatch (expected {previous.hash[:12]}..., got {current.prev_hash[:12]}...)")
+                return False
+
+            if not current.hash.startswith("0" * current.difficulty):
+                print(f"Invalid: Block {i} does not PoW difficulty")
+                return False
+            
+            return True
 
     def print_chain(self):
         pass

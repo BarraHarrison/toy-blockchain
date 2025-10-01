@@ -88,4 +88,16 @@ class Blockchain:
 
 
 if __name__ == "__main__":
-    pass
+    difficulty = 4
+    print(f"Creating chain with difficulty = {difficulty}")
+    bc = Blockchain(difficulty=difficulty)
+
+    bc.chain[0].nonce = 0
+    bc.chain[0].timestamp = time.time()
+    t0 = bc.chain[0].mine()
+    print(f"Mined genesis in {t0:.4f}s")
+    bc.add_block("Adam -> Bill: 5 BTC", mine=True)
+    bc.add_block("Bill -> Charles: 2 BTC", mine=True)
+    bc.add_block("Charles -> David: 1 BTC", mine=True)
+
+    

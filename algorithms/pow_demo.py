@@ -66,10 +66,23 @@ class Blockchain:
             return True
 
     def print_chain(self):
-        pass
+        for b in self.chain:
+            print(b)
 
-    def re_mine_from(self):
-        pass
+    def re_mine_from(self, index: int):
+        total_time = 0.0
+        if index > 0:
+            self.chain[index].prev_hash = self.chain[index-1].hash
+        for i in range(index, len(self.chain)):
+            block = self.chain[i]
+            if i > 0:
+                block.prev_hash = self.chain[i-1].hash
+            block.timestamp = time.time()
+            block.nonce = 0
+            elapsed = block.mine()
+            total_time += elapsed
+
+        return total_time
 
 
 

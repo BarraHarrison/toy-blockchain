@@ -117,4 +117,12 @@ if __name__ == "__main__":
     print("After re-mining the first block only:")
     bc.print_chain()
     print("Is valid?", bc.is_valid())
-    
+
+    print("\n--- Attacker re-mines from tampered block to end (this costs work) ---")
+    total_attack_time = bc.re_mine_from(1)
+    print(f"Attacker total re-mine time: {total_attack_time:.4f}s")
+    print("After re-mining chain from index 1:")
+    bc.print_chain()
+    print("Is valid?", bc.is_valid())
+
+    print("\nDemo complete.")

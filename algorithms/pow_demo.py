@@ -100,4 +100,15 @@ if __name__ == "__main__":
     bc.add_block("Bill -> Charles: 2 BTC", mine=True)
     bc.add_block("Charles -> David: 1 BTC", mine=True)
 
+    print("\n=== Original Chain ===")
+    bc.print_chain()
+    print("Is the chain valid?", bc.is_valid())
+
+    print("\n--- Tampering: Changing the data from block 1(5 BTC -> 500 BTC)")
+    bc.chain[1].data = "Adam -> Bill: 500 BTC"
+
+    print("\nAfter tampering (No Re-Mining):")
+    bc.print_chain()
+    print("Is valid?", bc.is_valid())
+
     

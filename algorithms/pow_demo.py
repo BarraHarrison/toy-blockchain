@@ -111,4 +111,10 @@ if __name__ == "__main__":
     bc.print_chain()
     print("Is valid?", bc.is_valid())
 
+    print("\n--- Bad actor attempts to re-mine the tampered block (first block) ---")
+    elapsed_one = bc.chain[1].mine()
+    print(f"Re-mined block 1 in {elapsed_one:.4f}s")
+    print("After re-mining the first block only:")
+    bc.print_chain()
+    print("Is valid?", bc.is_valid())
     

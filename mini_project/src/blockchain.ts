@@ -24,4 +24,22 @@ export class Blockchain {
         this.pendingTransactions.push(transaction);
     }
 
+    minePendingTransactions(): void {
+        const block = new Block(this.pendingTransactions, this.getLatestBlock().hash);
+        block.mineBlock(this.difficulty);
+        this.chain.push(block);
+        this.pendingTransactions = [];
+    }
+
+    isChainValid(): boolean {
+        for (let i = 1; i < this.chain.length; i++) {
+            const currentBlock = this.chain[i];
+            const prevBlock = this.chain[i - 1];
+
+            if (currentBlock.hash !== currentBlock.calculateHash()) return false;
+            if (currentBlock.previousHash !== prevBlock.hash) return false;
+        }
+        return true;
+    }
+
 }

@@ -26,7 +26,7 @@ export class Block {
         );
     }
 
-    mindBlock(difficulty: number): void {
+    mineBlock(difficulty: number): void {
         const target = "0".repeat(difficulty);
         while (!this.hash.startsWith(target)) {
             this.nonce++;
